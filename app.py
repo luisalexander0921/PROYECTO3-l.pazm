@@ -12,9 +12,12 @@ controller = Controller(heladeria)
 
 @app.route('/')
 def index():
-    # Obtener la información de los productos
-    productos = controller.ver_productos()
-    return render_template('index.html', productos=productos)
+    try:
+        productos = controller.ver_productos()
+        return render_template('index.html', productos=productos)
+    except Exception as e:
+        return f"Error: {e}", 500
+
 
 @app.route('/agregar_producto', methods=['GET', 'POST'])
 def agregar_producto():
